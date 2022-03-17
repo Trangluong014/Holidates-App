@@ -97,7 +97,7 @@ document.getElementById("languages-list-btn").addEventListener("click", () => {
 //Adding Day, Year, Month
 //Combine all queries (country, language)
 //Add holiday name => list of matching name for all countries
-
+const titleName = document.querySelector("#title-name");
 const inputCountry = document.querySelector("#country-query");
 const inputYear = document.querySelector("#year-query");
 const inputMonth = document.querySelector("#month-query");
@@ -134,10 +134,11 @@ const renderHolidays = async () => {
       x.innerHTML = `<div class="bullet">${index + 1}</div>
             <div class="li-wrapper">
                 <div class="li-title">${holiday.name}</div>
-                <div>Code: ${holiday.date}</div>
+                <div> ${holiday.weekday.date.name} - ${holiday.date}</div>
             </div>`;
       //Then append them to the `ul` element
       ulHolidaysList.appendChild(x);
+      //change Holiday of a Country Name:
     });
   } catch (err) {
     console.log("err", err);
