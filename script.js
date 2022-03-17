@@ -108,7 +108,7 @@ inputCountry.value = "VN";
 inputYear.value = "2021";
 const getHolidays = async () => {
   try {
-    const url = `https://holidayapi.com/v1/holidays?pretty&country=${inputCountry.value}&year=${inputYear.value}&month=${inputMonth.value}&day=${inputDay.value}&key=${API_KEY}`;
+    const url = `https://holidayapi.com/v1/holidays?pretty&country=${inputCountry.value}&year=${inputYear.value}&month=${inputMonth.value}&day=${inputDay.value}&search=${inputSearch.value}&language=${inputLanguage.value}&key=${API_KEY}`;
     //here is how we add a dynamic value (API KEY) to the url
     const res = await fetch(url);
     const data = await res.json();
