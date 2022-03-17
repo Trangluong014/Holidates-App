@@ -111,9 +111,9 @@ const getHolidays = async () => {
   //console.log(inputSearch.value);
   try {
     if (inputSearch.value === "") {
-      var url = `https://holidayapi.com/v1/holidays?pretty&country=${inputCountry.value}&year=${inputYear.value}&month=${inputMonth.value}&day=${inputDay.value}&langguage=${inputLanguage.value}&key=${API_KEY}`;
+      var url = `https://holidayapi.com/v1/holidays?pretty&country=${inputCountry.value}&year=${inputYear.value}&month=${inputMonth.value}&day=${inputDay.value}&language=${inputLanguage.value}&key=${API_KEY}`;
     } else {
-      var url = `https://holidayapi.com/v1/holidays?pretty&year=${inputYear.value}&month=${inputMonth.value}&day=${inputDay.value}&search=${inputSearch.value}&langguage=${inputLanguage.value}&key=${API_KEY}`;
+      var url = `https://holidayapi.com/v1/holidays?pretty&year=${inputYear.value}&month=${inputMonth.value}&day=${inputDay.value}&search=${inputSearch.value}&language=${inputLanguage.value}&key=${API_KEY}`;
     }
     console.log(inputLanguage.value);
     //here is how we add a dynamic value (API KEY) to the url
