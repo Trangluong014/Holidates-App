@@ -102,13 +102,13 @@ const inputCountry = document.querySelector("#country-query");
 const inputYear = document.querySelector("#year-query");
 const inputMonth = document.querySelector("#month-query");
 const inputDay = document.querySelector("#day-query");
-const inputHoliday = document.querySelector("#search-query");
+const inputSearch = document.querySelector("#search-query");
 const inputLanguage = document.querySelector("#language-query");
 inputCountry.value = "VN";
 inputYear.value = "2021";
 const getHolidays = async () => {
   try {
-    const url = `https://holidayapi.com/v1/holidays?pretty&country=${inputCountry.value}&year=${inputYear.value}&month=${inputMonth.value}&day=${inputDay.value}&search=${inputSearch.value}&language=${inputLanguage.value}&key=${API_KEY}`;
+    const url = `https://holidayapi.com/v1/holidays?pretty&country=${inputCountry.value}&year=${inputYear.value}&month=${inputMonth.value}&day=${inputDay.value}&key=${API_KEY}`;
     //here is how we add a dynamic value (API KEY) to the url
     const res = await fetch(url);
     const data = await res.json();
@@ -129,6 +129,7 @@ const renderHolidays = async () => {
     //4. Delete the sample inside `ul` element
     ulHolidaysList.innerHTML = "";
     //5. Loop through the list of countries
+    console.log(data.holidays);
     data.holidays.forEach((holiday, index) => {
       const x = document.createElement("li");
       x.innerHTML = `<div class="bullet">${index + 1}</div>
