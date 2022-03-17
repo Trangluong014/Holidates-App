@@ -61,9 +61,9 @@ const getLanguages = async () => {
 };
 const renderLanguages = async () => {
   try {
-    //1. Fetch all the countries by using function `getCountries`
+    //1. Fetch all the countries by using function `getLanguages`
     const data = await getLanguages();
-    //2. Find the element with the id `countries-list`
+    //2. Find the element with the id `languages-list`
     const languagesList = document.getElementById("languages-list");
     //3. Take out the `ul` element
     const ulLanguagesList = languagesList.children[2];
@@ -89,9 +89,60 @@ document.getElementById("languages-list-btn").addEventListener("click", () => {
 });
 
 //Function Render Holiday
+//get Holiday list
+//Render Holiday
 //make Vietnam - 2021 as defaul
 //change Holiday of country title
 //list items inside Holiday of a Country container
 //Adding Day, Year, Month
 //Combine all queries (country, language)
 //Add holiday name => list of matching name for all countries
+
+const inputCountry = document.querySelector("#country-query");
+const inputYear = document.querySelector("#year-query");
+const inputMonth = document.querySelector("#month-query");
+const inputDay = document.querySelector("#day-query");
+const inputHoliday = document.querySelector("#search-query");
+const inputLanguage = document.querySelector("#language-query");
+inputCountry.value = "VN";
+inputYear.value = "2021";
+const getHolidays = async () => {
+  try {
+    const url = `https://holidayapi.com/v1/holidays?pretty&country=${inputCountry.value}&year=${inputYear.value}&key=${API_KEY}`;
+    //here is how we add a dynamic value (API KEY) to the url
+    const res = await fetch(url);
+    const data = await res.json();
+    console.log("data", data); //have a look the retrieved data
+    return data;
+  } catch (err) {
+    console.log("err", err);
+  }
+};
+const renderHolidays = async () => {
+  try {
+    //1. Fetch all the countries by using function `getHolidays`
+    const data = await getHolidays();
+    //2. Find the element with the id `holidays-list`
+    const holidaysList = document.getElementById("holidays-list");
+    //3. Take out the `ul` element
+    const ulHolidaysList = holidaysList.children[1];
+    //4. Delete the sample inside `ul` element
+    ulHolidaysList.innerHTML = "";
+    //5. Loop through the list of countries
+    data.holidays.forEach((holiday, index) => {
+      const x = document.createElement("li");
+      x.innerHTML = `<div class="bullet">${index + 1}</div>
+            <div class="li-wrapper">
+                <div class="li-title">${holiday.name}</div>
+                <div>Code: ${holiday.date}</div>
+            </div>`;
+      //Then append them to the `ul` element
+      ulHolidaysList.appendChild(x);
+    });
+  } catch (err) {
+    console.log("err", err);
+  }
+};
+document.getElementById("holidays-btn").addEventListener("click", () => {
+  renderHolidays();
+});
