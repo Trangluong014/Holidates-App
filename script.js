@@ -97,7 +97,7 @@ document.getElementById("languages-list-btn").addEventListener("click", () => {
 //Adding Day, Year, Month
 //Combine all queries (country, language)
 //Add holiday name => list of matching name for all countries
-const titleName = document.querySelector("#title-name");
+const titleName = document.getElementById("title-name");
 const inputCountry = document.querySelector("#country-query");
 const inputYear = document.querySelector("#year-query");
 const inputMonth = document.querySelector("#month-query");
@@ -106,6 +106,7 @@ const inputSearch = document.querySelector("#search-query");
 const inputLanguage = document.querySelector("#language-query");
 inputCountry.value = "VN";
 inputYear.value = "2021";
+
 const getHolidays = async () => {
   try {
     const url = `https://holidayapi.com/v1/holidays?pretty&country=${inputCountry.value}&year=${inputYear.value}&month=${inputMonth.value}&day=${inputDay.value}&key=${API_KEY}`;
@@ -114,6 +115,18 @@ const getHolidays = async () => {
     const data = await res.json();
     console.log("data", data); //have a look the retrieved data
     return data;
+  } catch (err) {
+    console.log("err", err);
+  }
+};
+const changeCountry = async () => {
+  try {
+    const data = await getCountries();
+    data.countries.find((country) => {
+      if (country.code === inputCountry.value) {
+        titleName.textContent = `Holidays of ${country.name}`;
+      }
+    });
   } catch (err) {
     console.log("err", err);
   }
@@ -135,11 +148,14 @@ const renderHolidays = async () => {
       x.innerHTML = `<div class="bullet">${index + 1}</div>
             <div class="li-wrapper">
                 <div class="li-title">${holiday.name}</div>
-                <div> ${holiday.weekday.date.name} - ${holiday.date}</div>
+                <div class="li-text"> ${holiday.weekday.date.name} - ${
+        holiday.date
+      }</div>
             </div>`;
       //Then append them to the `ul` element
       ulHolidaysList.appendChild(x);
       //change Holiday of a Country Name:
+      changeCountry();
     });
   } catch (err) {
     console.log("err", err);
