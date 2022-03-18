@@ -110,10 +110,12 @@ inputYear.value = "2021";
 const getHolidays = async () => {
   //console.log(inputSearch.value);
   try {
+    let url;
+    let language = inputLanguage.value || "en";
     if (inputSearch.value === "") {
-      var url = `https://holidayapi.com/v1/holidays?pretty&country=${inputCountry.value}&year=${inputYear.value}&month=${inputMonth.value}&day=${inputDay.value}&language=${inputLanguage.value}&key=${API_KEY}`;
+      url = `https://holidayapi.com/v1/holidays?pretty&country=${inputCountry.value}&year=${inputYear.value}&month=${inputMonth.value}&day=${inputDay.value}&language=${language}&key=${API_KEY}`;
     } else {
-      var url = `https://holidayapi.com/v1/holidays?pretty&year=${inputYear.value}&month=${inputMonth.value}&day=${inputDay.value}&search=${inputSearch.value}&language=${inputLanguage.value}&key=${API_KEY}`;
+      url = `https://holidayapi.com/v1/holidays?pretty&year=${inputYear.value}&month=${inputMonth.value}&day=${inputDay.value}&search=${inputSearch.value}&language=${language}&key=${API_KEY}`;
     }
     console.log(inputLanguage.value);
     //here is how we add a dynamic value (API KEY) to the url
@@ -126,6 +128,7 @@ const getHolidays = async () => {
   }
 };
 const changeCountry = async () => {
+  console.log("changeCountry");
   try {
     const data = await getCountries();
     data.countries.find((country) => {
@@ -148,6 +151,8 @@ const renderHolidays = async () => {
     //4. Delete the sample inside `ul` element
     ulHolidaysList.innerHTML = "";
     //5. Loop through the list of countries
+    //change Holiday of a Country Name:
+    changeCountry();
     console.log(data.holidays);
     data.holidays.forEach((holiday, index) => {
       const x = document.createElement("li");
@@ -160,8 +165,6 @@ const renderHolidays = async () => {
             </div>`;
       //Then append them to the `ul` element
       ulHolidaysList.appendChild(x);
-      //change Holiday of a Country Name:
-      changeCountry();
     });
   } catch (err) {
     console.log("err", err);
