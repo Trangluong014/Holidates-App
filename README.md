@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This is an assignment for CoderSchool Fullstack Web Development Bootcamp, code name Virgil
+This is an assignment for CoderSchool Fullstack Web Development Bootcamp.
 
 Outcome :
 
